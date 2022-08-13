@@ -4,11 +4,12 @@ import Modal from 'react-modal';
 import { ToastContainer, toast } from 'react-toastify';
 import { Slide, Zoom, Flip, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ResumeTile from './components/ResumeTile'
+import ResumeTile from './components/ResumeTile';
 
 import Upload2firebase from './components/upload2Firebase';
+import DatabaseUpload from './components/databaseUpload';
 
-import { mainLogo, magnifyGlassLogo } from './images/imageindex'
+import { mainLogo, magnifyGlassLogo } from './images/imageindex';
 import Pagination from './components/Pagination';
 import resumeData from './mock_data.json';
 
@@ -21,8 +22,8 @@ function App() {
   // onClick handler for testing
   const testClick = (e) => {
     e.preventDefault();
-    toast("Wow so easy !");
-  }
+    toast('Wow so easy !');
+  };
 
   // For pagination
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -34,15 +35,16 @@ function App() {
     return resumeData.slice(firstPageIndex, lastPageIndex);
   }, [currentPage]);
 
-
   return (
     <div className="app">
-
       {/* Navigation bar with: title + resume upload link */}
       <nav>
-        <img className="titleLogo" src={mainLogo}/>
+        <img className="titleLogo" src={mainLogo} />
         <span className="title">resume parser</span>
-        <button className="uploadResume" onClick={() => setModalIsOpen(true)}> upload resume </button>
+        <button className="uploadResume" onClick={() => setModalIsOpen(true)}>
+          {' '}
+          upload resume{' '}
+        </button>
       </nav>
 
       {/* Popup overlay for the resume submission UI */}
@@ -53,10 +55,14 @@ function App() {
         onRequestClose={() => setModalIsOpen(false)}
       >
         {/* Label is CSS stylable button for a hidden file input because file input can't be styled */}
-        
-        
-        <Upload2firebase/>
-        <button className="uploadCloseBtn" onClick={() => setModalIsOpen(false)}>X</button>
+
+        <Upload2firebase />
+        <button
+          className="uploadCloseBtn"
+          onClick={() => setModalIsOpen(false)}
+        >
+          X
+        </button>
       </Modal>
 
       {/* Search bar div with: invisible input form + search button */}
@@ -67,7 +73,7 @@ function App() {
 
       {/* Resume summary tiles */}
       <div className="resumeTilesBoard">
-        {resumeDataView.map(item => {
+        {resumeDataView.map((item) => {
           return (
             <ResumeTile
               testClick={testClick}
@@ -84,7 +90,6 @@ function App() {
         })}
       </div>
 
-
       <ToastContainer
         position="bottom-right"
         autoClose={500}
@@ -99,9 +104,8 @@ function App() {
         currentPage={currentPage}
         totalCount={resumeData.length}
         pageSize={4}
-        onPageChange={page => setCurrentPage(page)}
+        onPageChange={(page) => setCurrentPage(page)}
       />
-
     </div>
   );
 }
